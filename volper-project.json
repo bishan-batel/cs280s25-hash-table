@@ -1,0 +1,13 @@
+{
+  "makeTargets": [
+    "gcc0"
+  ],
+  "submissionName": "submission",
+  "sourceFiles": [
+    ".c",
+    ".cpp",
+    ".h",
+    ".hpp"
+  ],
+  "testCount": "autodetect"
+}
