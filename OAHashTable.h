@@ -1,11 +1,13 @@
 #pragma once
 
+#include <cstdlib>
 #ifndef OAHASHTABLEH
 #define OAHASHTABLEH
 
 #include "Support.h"
 #include <cstdint>
 #include <string>
+#include <memory>
 
 /**
  * @brief 32 Bit Floating Point Number
@@ -103,7 +105,7 @@ public:
 
   //! Non-default constructor
   inline OAHashTableException(Code err, std::string message):
-      error(err), message{std::move(message)} {};
+      error{err}, message{std::move(message)} {};
 
   /*!
     Retrieves exception code
@@ -135,19 +137,14 @@ enum OAHTDeletionPolicy {
 //! OAHashTable statistical info
 struct OAHTStats {
   //! Default constructor
-  inline OAHTStats():
-      Count_(0),
-      TableSize_(0),
-      Probes_(0),
-      Expansions_(0),
-      PrimaryHashFunc_(nullptr),
-      SecondaryHashFunc_(nullptr) {};
-  u32 Count_;                  //!< Number of elements in the table
-  u32 TableSize_;              //!< Size of the table (total slots)
-  u32 Probes_;                 //!< Number of probes performed
-  u32 Expansions_;             //!< Number of times the table grew
-  HASHFUNC PrimaryHashFunc_;   //!< Pointer to primary hash function
-  HASHFUNC SecondaryHashFunc_; //!< Pointer to secondary hash function
+  OAHTStats() = default;
+
+  u32 Count_{0};                        //!< Number of elements in the table
+  u32 TableSize_{0};                    //!< Size of the table (total slots)
+  u32 Probes_{0};                       //!< Number of probes performed
+  u32 Expansions_{0};                   //!< Number of times the table grew
+  HASHFUNC PrimaryHashFunc_{nullptr};   //!< Pointer to primary hash function
+  HASHFUNC SecondaryHashFunc_{nullptr}; //!< Pointer to secondary hash function
 };
 
 //! Hash table definition (open-addressing)
@@ -172,13 +169,13 @@ public:
       OAHTDeletionPolicy policy = PACK,
       FREEPROC free_proc = nullptr
     ):
-        InitialTableSize_(initial_size),
-        PrimaryHashFunc_(primary_hash),
-        SecondaryHashFunc_(second_hash),
-        MaxLoadFactor_(max_load_factor),
-        GrowthFactor_(grow_factor),
-        DeletionPolicy_(policy),
-        FreeProc_(free_proc) {}
+        InitialTableSize_{initial_size},
+        PrimaryHashFunc_{primary_hash},
+        SecondaryHashFunc_{second_hash},
+        MaxLoadFactor_{max_load_factor},
+        GrowthFactor_{grow_factor},
+        DeletionPolicy_{policy},
+        FreeProc_{free_proc} {}
 
     u32 InitialTableSize_;              //!< The starting table size
     HASHFUNC PrimaryHashFunc_;          //!< First hash function
@@ -189,20 +186,27 @@ public:
     FREEPROC FreeProc_;                 //!< Client-provided free function
   };
 
+  //! The 3 possible states the slot can be in
+
   //! Slots that will hold the key/data pairs
-  struct OAHTSlot {
-    //! The 3 possible states the slot can be in
-    enum OAHTSlot_State {
+  struct Slot {
+    enum SlotState {
       OCCUPIED,
       UNOCCUPIED,
       DELETED
     };
 
-    char Key[MAX_KEYLEN]; //!< Key is a string
-    T Data;               //!< Client data
-    OAHTSlot_State State; //!< The state of the slot
-    i32 probes;           //!< For testing
+    using OAHTSlot_State = SlotState;
+
+    char Key[MAX_KEYLEN]{""};    //!< Key is a string
+    T Data;                      //!< Client data
+    SlotState State{UNOCCUPIED}; //!< The state of the slot
+    i32 probes{0};               //!< For testing
+
+    auto key_matches(const char* key) -> bool;
   };
+
+  using OAHTSlot = Slot;
 
   OAHashTable(const OAHTConfig& Config); // Constructor
 
@@ -234,7 +238,7 @@ public:
   // Allow the client to peer into the data
   auto GetStats() const -> OAHTStats;
 
-  auto GetTable() const -> const OAHTSlot*;
+  auto GetTable() const -> const Slot*;
 
 private: // Some suggestions (You don't have to use any of this.)
 
@@ -246,15 +250,30 @@ private: // Some suggestions (You don't have to use any of this.)
   // making sure the new size is prime by calling GetClosestPrime
   auto grow() -> void;
 
+  struct index_res {
+    Slot* slot{nullptr};
+    usize index{0};
+
+    explicit operator bool() const { return slot != nullptr; }
+  };
+
   // Workhorse method to locate an item (if it exists)
   // Returns the index of the item in the table
   // Sets Slot to point to the slot in the table where it belongs
   // Returns -1 if it's not in the table
-  auto index_of(const char* key, OAHTSlot*& slot) const -> i32;
+  auto index_of(const char* key) const -> index_res;
 
-  // Other private fields and methods...
+  auto destruct() -> void;
 
-  mutable OAHTStats stats;
+  auto primary_hash(const char* key) -> usize;
+
+  auto secondary_hash(const char* key) -> usize;
+
+  mutable OAHTStats stats{};
+  OAHTConfig config{};
+  std::unique_ptr<OAHTSlot[]> slots{};
+  usize capacity{};
+  usize size{0};
 };
 
 #include "OAHashTable.cpp"
