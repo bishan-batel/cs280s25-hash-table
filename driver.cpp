@@ -248,8 +248,7 @@ void Dispose(Person*) {}
 template<typename T>
 void DumpTable(OAHashTable<T>& ht) {
   char buffer[80];
-  ht.GetTable();
-  const auto* slots = ht.GetTable();
+  const typename OAHashTable<T>::OAHTSlot* slots = ht.GetTable();
   HASHFUNC phf = ht.GetStats().PrimaryHashFunc_;
   HASHFUNC shf = ht.GetStats().SecondaryHashFunc_;
   for (unsigned i = 0; i < ht.GetStats().TableSize_; i++) {
@@ -711,7 +710,7 @@ void TestSimpleDeletePresent() {
       Person* person = PersonRecs[i];
       ht.insert(person->ID, person);
       // DumpTable<T>(ht);
-      // DumpStats<T>(ht);
+      //  DumpStats<T>(ht);
     }
     DumpTable<T>(ht);
     DumpStats<T>(ht);

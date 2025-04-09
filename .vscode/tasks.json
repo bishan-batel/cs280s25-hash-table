@@ -2,9 +2,121 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build & Test",
+      "label": "Build",
       "type": "shell",
-      "command": "./volpy"
+      "command": "cmake --build build"
+    },
+    {
+      "label": "All Tests",
+      "type": "shell",
+      "command": "./run.nu",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 1",
+      "type": "shell",
+      "command": "./run.nu 1",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 2",
+      "type": "shell",
+      "command": "./run.nu 2",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 3",
+      "type": "shell",
+      "command": "./run.nu 3",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 4",
+      "type": "shell",
+      "command": "./run.nu 4",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 5",
+      "type": "shell",
+      "command": "./run.nu 5",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 6",
+      "type": "shell",
+      "command": "./run.nu 6",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 7",
+      "type": "shell",
+      "command": "./run.nu 7",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 8",
+      "type": "shell",
+      "command": "./run.nu 8",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 9",
+      "type": "shell",
+      "command": "./run.nu 9",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 10",
+      "type": "shell",
+      "command": "./run.nu 10",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 11",
+      "type": "shell",
+      "command": "./run.nu 11",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 12",
+      "type": "shell",
+      "command": "./run.nu 12",
+      "dependsOn": [
+        "Build"
+      ]
+    },
+    {
+      "label": "Test 13",
+      "type": "shell",
+      "command": "./run.nu 13",
+      "dependsOn": [
+        "Build"
+      ]
     }
   ]
 }

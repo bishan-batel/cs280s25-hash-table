@@ -203,7 +203,7 @@ public:
     SlotState State{UNOCCUPIED}; //!< The state of the slot
     i32 probes{0};               //!< For testing
 
-    auto key_matches(const char* key) -> bool;
+    auto key_matches(const char* key) const -> bool;
   };
 
   using OAHTSlot = Slot;
@@ -240,15 +240,26 @@ public:
 
   auto GetTable() const -> const Slot*;
 
+  auto size() const -> u32;
+
+  auto capacity() const -> u32;
+
+  auto load_factor() const -> f32;
+
+  auto empty() const -> bool;
+
 private: // Some suggestions (You don't have to use any of this.)
 
-  // Initialize the table after an allocation
-  auto init_table() -> void;
+  auto size() -> u32&;
+
+  auto capacity() -> u32&;
 
   // Expands the table when the load factor reaches a certain point
   // (greater than MaxLoadFactor) Grows the table by GrowthFactor,
   // making sure the new size is prime by calling GetClosestPrime
   auto grow() -> void;
+
+  auto grow_if_needed() -> void;
 
   struct index_res {
     Slot* slot{nullptr};
@@ -263,17 +274,13 @@ private: // Some suggestions (You don't have to use any of this.)
   // Returns -1 if it's not in the table
   auto index_of(const char* key) const -> index_res;
 
-  auto destruct() -> void;
+  auto hash(const char* key) const -> usize;
 
-  auto primary_hash(const char* key) -> usize;
-
-  auto secondary_hash(const char* key) -> usize;
+  auto probe_stride(const char* key) const -> usize;
 
   mutable OAHTStats stats{};
   OAHTConfig config{};
   std::unique_ptr<OAHTSlot[]> slots{};
-  usize capacity{};
-  usize size{0};
 };
 
 #include "OAHashTable.cpp"
