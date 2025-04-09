@@ -7,9 +7,9 @@ def main [test: int] {
 
 	let output = (./build/driver_c $test) | complete
 
-  echo $output.stdout | save -f $out
+	echo $output.stdout | save -f $out
 
-  if $output.exit_code != 0 {
+	if $output.exit_code != 0 {
 		bat $out
 		error make {msg: "Failed to run", }
 		return 1
