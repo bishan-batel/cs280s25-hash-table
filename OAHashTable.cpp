@@ -88,7 +88,6 @@ auto OAHashTable<T>::insert(const char* key, const T& data) -> void {
     Slot& slot{slots[index]};
 
     stats.Probes_++;
-
     if (slot.State == Slot::OCCUPIED) {
       continue;
     }
@@ -102,14 +101,16 @@ auto OAHashTable<T>::insert(const char* key, const T& data) -> void {
 
     for (usize j = 1; j < capacity(); j++) {
       stats.Probes_++;
-      if (slots[(hash1 + j) % capacity()].State != Slot::DELETED) {
-        break;
+      if (slots[(hash1 + j * stride) % capacity()].State != Slot::DELETED) {
+        continue;
       }
-      if (slots[(hash1 + j) % capacity()].key_matches(key)) {
+      if (slots[(hash1 + j * stride) % capacity()].key_matches(key)) {
         throw OAHashTableException(
           OAHashTableException::E_DUPLICATE,
           "Duplicate key"
         );
+      } else {
+        break;
       }
     }
 

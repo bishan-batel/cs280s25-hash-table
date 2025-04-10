@@ -182,7 +182,7 @@ Deleting key: 123456
 
 errno: 0, Key not in table.
 
-Number of probes: 40
+Number of probes: 61
 Number of expansions: 1
 Items: 12, TableSize: 23
 Load factor: 0.522
@@ -191,7 +191,7 @@ Deleting key: 123457
 
 errno: 0, Key not in table.
 
-Number of probes: 63
+Number of probes: 84
 Number of expansions: 1
 Items: 12, TableSize: 23
 Load factor: 0.522
@@ -218,7 +218,7 @@ Slot:  19, Key: *** Empty ***
 Slot:  20, Key: *** Empty ***
 Slot:  21, Key: *** Empty ***
 Slot:  22, Key: *** Empty ***
-Number of probes: 63
+Number of probes: 84
 Number of expansions: 1
 Items: 0, TableSize: 23
 Load factor: 0
