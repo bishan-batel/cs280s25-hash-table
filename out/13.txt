@@ -38,7 +38,7 @@ Slot:   7, Key: 103001 (7:4)
 Slot:   8, Key: 106001 (8:7)
 Slot:   9, Key: 109001 (9:10)
 Slot:  10, Key: 101001 (10:2)
-Number of probes: 13
+Number of probes: 9
 Number of expansions: 1
 Items: 9, TableSize: 11
 Load factor: 0.818
@@ -55,7 +55,7 @@ Slot:   7, Key: 103001 (7:4)
 Slot:   8, Key: 106001 (8:7)
 Slot:   9, Key: 109001 (9:10)
 Slot:  10, Key: 101001 (10:2)
-Number of probes: 15
+Number of probes: 11
 Number of expansions: 1
 Items: 10, TableSize: 11
 Load factor: 0.909
@@ -84,7 +84,7 @@ Slot:  19, Key: *** Empty ***
 Slot:  20, Key: 104001 (20:9)
 Slot:  21, Key: 110001 (21:6)
 Slot:  22, Key: 105001 (22:10)
-Number of probes: 26
+Number of probes: 12
 Number of expansions: 2
 Items: 11, TableSize: 23
 Load factor: 0.478
@@ -118,7 +118,7 @@ Slot:  19, Key: *** Empty ***
 Slot:  20, Key: 104001 (20:9)
 Slot:  21, Key: 110001 (21:6)
 Slot:  22, Key: 105001 (22:10)
-Number of probes: 32
+Number of probes: 18
 Number of expansions: 2
 Items: 17, TableSize: 23
 Load factor: 0.739
@@ -147,7 +147,7 @@ Slot:  19, Key: 118001 (14:14)
 Slot:  20, Key: 104001 (20:9)
 Slot:  21, Key: 110001 (21:6)
 Slot:  22, Key: 105001 (22:10)
-Number of probes: 35
+Number of probes: 21
 Number of expansions: 2
 Items: 18, TableSize: 23
 Load factor: 0.783
@@ -176,7 +176,7 @@ Slot:  19, Key: 118001 (14:14)
 Slot:  20, Key: 104001 (20:9)
 Slot:  21, Key: 110001 (21:6)
 Slot:  22, Key: 105001 (22:10)
-Number of probes: 39
+Number of probes: 25
 Number of expansions: 2
 Items: 19, TableSize: 23
 Load factor: 0.826
@@ -205,7 +205,7 @@ Slot:  19, Key: 118001 (14:14)
 Slot:  20, Key: 104001 (20:9)
 Slot:  21, Key: 110001 (21:6)
 Slot:  22, Key: 105001 (22:10)
-Number of probes: 48
+Number of probes: 34
 Number of expansions: 2
 Items: 20, TableSize: 23
 Load factor: 0.87
@@ -234,7 +234,7 @@ Slot:  19, Key: 118001 (14:14)
 Slot:  20, Key: 104001 (20:9)
 Slot:  21, Key: 110001 (21:6)
 Slot:  22, Key: 105001 (22:10)
-Number of probes: 49
+Number of probes: 35
 Number of expansions: 2
 Items: 21, TableSize: 23
 Load factor: 0.913

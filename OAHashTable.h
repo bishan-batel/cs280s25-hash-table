@@ -198,7 +198,7 @@ public:
 
     using OAHTSlot_State = SlotState;
 
-    char Key[MAX_KEYLEN]{""};    //!< Key is a string
+    char Key[MAX_KEYLEN]{'\0'};  //!< Key is a string
     T Data;                      //!< Client data
     SlotState State{UNOCCUPIED}; //!< The state of the slot
     i32 probes{0};               //!< For testing
@@ -274,9 +274,9 @@ private: // Some suggestions (You don't have to use any of this.)
   // Returns -1 if it's not in the table
   auto index_of(const char* key) const -> index_res;
 
-  auto hash(const char* key) const -> usize;
+  auto hash(const char* key) const -> u32;
 
-  auto probe_stride(const char* key) const -> usize;
+  auto probe_stride(const char* key) const -> u32;
 
   mutable OAHTStats stats{};
   OAHTConfig config{};

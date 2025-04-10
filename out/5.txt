@@ -1,6 +1,6 @@
 
 ==================== TestSimpleDispose ====================
-Number of probes: 18
+Number of probes: 11
 Number of expansions: 1
 Items: 11, TableSize: 23
 Load factor: 0.478

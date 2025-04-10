@@ -23,7 +23,7 @@ Slot:  19, Key: *** Empty ***
 Slot:  20, Key: *** Empty ***
 Slot:  21, Key: 103001 (21:12)
 Slot:  22, Key: *** Empty ***
-Number of probes: 28
+Number of probes: 17
 Number of expansions: 1
 Items: 11, TableSize: 23
 Load factor: 0.478
