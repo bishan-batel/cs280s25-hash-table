@@ -20,7 +20,7 @@ Key 999999 not found. errno: 0, Item not found in table.
 
 errno: 0, Key not in table.
 
-Number of probes: 42
+Number of probes: 40
 Number of expansions: 0
 Items: 11, TableSize: 11
 Load factor: 1

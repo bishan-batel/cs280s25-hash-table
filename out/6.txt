@@ -133,7 +133,7 @@ Slot:  13, Key: *** Empty ***
 Slot:  14, Key: *** Empty ***
 Slot:  15, Key: *** Empty ***
 Slot:  16, Key: *** Empty ***
-Number of probes: 66
+Number of probes: 100
 Number of expansions: 2
 Items: 11, TableSize: 17
 Load factor: 0.647

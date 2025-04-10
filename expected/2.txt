@@ -4,4 +4,3 @@ Number of probes: 423
 Number of expansions: 3
 Items: 30, TableSize: 47
 Load factor: 0.638
-

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <ostream>
 #include <utility>
+#include <vector>
 
 // ============================================================================
 // Lifetime / Rule of 5 Semantics
@@ -27,8 +28,8 @@ OAHashTable<T>::OAHashTable(const OAHTConfig& config): config{config} {
 
 template<typename T>
 OAHashTable<T>::OAHashTable(OAHashTable&& from):
-    config{from.config},
-    stats{from.stats},
+    config{std::exchange(from.config, {})},
+    stats{std::exchange(from.stats, {})},
     slots{std::exchange(from.slots, nullptr)} {}
 
 template<typename T>
@@ -36,6 +37,7 @@ OAHashTable<T>::OAHashTable(const OAHashTable& from):
     config{from.config}, stats{from.stats} {
 
   slots.reset(new Slot[from.capacity()]);
+  std::vector<T> a;
   std::copy(from.slots, &from.slots[from.capacity()], slots);
 }
 
@@ -81,47 +83,57 @@ auto OAHashTable<T>::insert(const char* key, const T& data) -> void {
   const usize hash1 = hash(key);
   const usize stride = probe_stride(key);
 
-  for (usize i = 0; true; i += stride) {
-    const usize index{(hash1 + i) % capacity()};
+  for (usize i = 0; i < capacity(); i++) {
+    const usize index{(hash1 + i * stride) % capacity()};
     Slot& slot{slots[index]};
 
     stats.Probes_++;
-    if (slot.State != OAHashTable::Slot::OCCUPIED) {
+
+    if (slot.State == Slot::OCCUPIED) {
+      continue;
+    }
+
+    if (slot.State == Slot::UNOCCUPIED) {
       slot.State = OAHashTable::Slot::OCCUPIED;
       std::strncpy(slot.Key, key, MAX_KEYLEN - 1);
       slot.Data = data;
       return;
     }
 
-    if (slot.key_matches(key)) {
-      throw OAHashTableException(
-        OAHashTableException::E_DUPLICATE,
-        "Duplicate key"
-      );
+    for (usize j = 1; j < capacity(); j++) {
+      stats.Probes_++;
+      if (slots[(hash1 + j) % capacity()].State != Slot::DELETED) {
+        break;
+      }
+      if (slots[(hash1 + j) % capacity()].key_matches(key)) {
+        throw OAHashTableException(
+          OAHashTableException::E_DUPLICATE,
+          "Duplicate key"
+        );
+      }
     }
+
+    slot.State = OAHashTable::Slot::OCCUPIED;
+    std::strncpy(slot.Key, key, MAX_KEYLEN - 1);
+    slot.Data = data;
+    return;
   }
-
-  assert(false && "Unreachable");
-
-  // Unreachable;
-  throw OAHashTableException(OAHashTableException::E_NO_MEMORY, "TODO Insert");
 }
 
 template<typename T>
 auto OAHashTable<T>::remove(const char* key) -> void {
-  stats.Probes_++;
   const u32 hash1 = hash(key);
   const u32 stride = probe_stride(key);
 
-  for (u32 i = 0; i < capacity(); i += stride) {
-    const u32 index{(hash1 + i) % capacity()};
+  for (u32 i = 0; i < capacity(); i++) {
+    const u32 index{(hash1 + i * stride) % capacity()};
     Slot& slot{slots[index]};
 
+    stats.Probes_++;
     if (slot.State == Slot::UNOCCUPIED) {
       continue;
     }
 
-    stats.Probes_++;
     if (not slot.key_matches(key)) {
       continue;
     }
@@ -137,6 +149,7 @@ auto OAHashTable<T>::remove(const char* key) -> void {
       config.FreeProc_(slot.Data);
     }
 
+    size()--;
     if (config.DeletionPolicy_ == OAHTDeletionPolicy::MARK) {
       slot.State = Slot::DELETED;
     } else if (config.DeletionPolicy_ == OAHTDeletionPolicy::PACK) {
@@ -149,19 +162,14 @@ auto OAHashTable<T>::remove(const char* key) -> void {
           break;
         }
 
-        Slot moved = std::exchange(slots[k], Slot{});
+        slots[k].State = Slot::UNOCCUPIED;
         size()--;
-
-        insert(moved.Key, moved.Data);
-
-        if (config.FreeProc_) {
-          config.FreeProc_(moved.Data);
-        }
+        insert(slots[k].Key, slots[k].Data);
       }
     }
-    size()--;
     return;
   }
+
   throw OAHashTableException(
     OAHashTableException::E_ITEM_NOT_FOUND,
     "Key not in table."
@@ -232,8 +240,6 @@ auto OAHashTable<T>::grow() -> void {
     std::unique_ptr<Slot[]> old_slots{new Slot[capacity()]{}};
     slots.swap(old_slots);
 
-    auto old = stats.Probes_;
-
     for (u32 i = 0; i < old_capacity and size() < old_size; i++) {
       Slot& slot = old_slots[i];
 
@@ -243,7 +249,6 @@ auto OAHashTable<T>::grow() -> void {
 
       insert(slot.Key, slot.Data);
     }
-    stats.Probes_ = old;
 
   } catch (const std::bad_alloc&) {
     throw OAHashTableException(
@@ -255,7 +260,6 @@ auto OAHashTable<T>::grow() -> void {
 
 template<typename T>
 auto OAHashTable<T>::index_of(const char* key) const -> index_res {
-  stats.Probes_++;
 
   const usize hash1 = hash(key);
   const usize stride = probe_stride(key);
@@ -269,7 +273,6 @@ auto OAHashTable<T>::index_of(const char* key) const -> index_res {
     stats.Probes_++;
     if (slot.State == Slot::DELETED) {
       if (slot.key_matches(key)) {
-        stats.Probes_ -= (i == 0);
         return {nullptr, 0};
       }
     }
@@ -279,7 +282,6 @@ auto OAHashTable<T>::index_of(const char* key) const -> index_res {
     }
 
     if (slot.key_matches(key)) {
-      stats.Probes_ -= (i == 0);
       return {&slot, index};
     }
   }
