@@ -132,7 +132,11 @@ auto OAHashTable<T>::remove(const char* key) -> void {
 
     stats.Probes_++;
     if (slot.State == Slot::UNOCCUPIED) {
-      continue;
+      throw OAHashTableException(
+        OAHashTableException::E_ITEM_NOT_FOUND,
+        "Key not in table."
+      );
+      return;
     }
 
     if (not slot.key_matches(key)) {
@@ -142,7 +146,7 @@ auto OAHashTable<T>::remove(const char* key) -> void {
     if (slot.State == Slot::DELETED) {
       throw OAHashTableException(
         OAHashTableException::E_ITEM_NOT_FOUND,
-        "Key not in the table."
+        "Key not in table."
       );
     }
 
@@ -264,7 +268,6 @@ auto OAHashTable<T>::index_of(const char* key) const -> index_res {
 
   const usize hash1 = hash(key);
   const usize stride = probe_stride(key);
-
   const usize capacity = this->capacity();
 
   for (usize i = 0; i < capacity; i += stride) {
@@ -272,6 +275,11 @@ auto OAHashTable<T>::index_of(const char* key) const -> index_res {
     Slot& slot{slots[index]};
 
     stats.Probes_++;
+
+    if (slot.State == Slot::UNOCCUPIED) {
+      return {nullptr, 0};
+    }
+
     if (slot.State == Slot::DELETED) {
       if (slot.key_matches(key)) {
         return {nullptr, 0};

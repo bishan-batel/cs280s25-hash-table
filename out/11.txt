@@ -70,7 +70,7 @@ Slot:  13, Key: 112001 (4)
 Slot:  14, Key: 113001 (5)
 Slot:  15, Key: 114001 (6)
 Slot:  16, Key: 115001 (7)
-Number of probes: 99
+Number of probes: 104
 Number of expansions: 0
 Items: 12, TableSize: 17
 Load factor: 0.706

@@ -67,7 +67,7 @@ Load factor: 0.769
 
 Finding key: 123456 (10)
 Key 123456 not found. errno: 0, Item not found in table.
-Number of probes: 44
+Number of probes: 37
 Number of expansions: 0
 Items: 10, TableSize: 13
 Load factor: 0.769
@@ -86,7 +86,7 @@ Slot:   9, Key: 105001 (9)
 Slot:  10, Key: 106001 (10)
 Slot:  11, Key: 107001 (11)
 Slot:  12, Key: 108001 (12)
-Number of probes: 54
+Number of probes: 47
 Number of expansions: 0
 Items: 11, TableSize: 13
 Load factor: 0.846
@@ -115,7 +115,7 @@ Slot:  19, Key: 103001 (17)
 Slot:  20, Key: 104001 (18)
 Slot:  21, Key: 105001 (19)
 Slot:  22, Key: 106001 (20)
-Number of probes: 93
+Number of probes: 86
 Number of expansions: 1
 Items: 12, TableSize: 23
 Load factor: 0.522
@@ -144,7 +144,7 @@ Slot:  19, Key: 103001 (17)
 Slot:  20, Key: 104001 (18)
 Slot:  21, Key: 105001 (19)
 Slot:  22, Key: 106001 (20)
-Number of probes: 103
+Number of probes: 96
 Number of expansions: 1
 Items: 13, TableSize: 23
 Load factor: 0.565
@@ -173,7 +173,7 @@ Slot:  19, Key: 104001 (18)
 Slot:  20, Key: 105001 (19)
 Slot:  21, Key: 106001 (20)
 Slot:  22, Key: 107001 (21)
-Number of probes: 140
+Number of probes: 133
 Number of expansions: 1
 Items: 12, TableSize: 23
 Load factor: 0.522
@@ -182,7 +182,7 @@ Deleting key: 123456
 
 errno: 0, Key not in table.
 
-Number of probes: 163
+Number of probes: 134
 Number of expansions: 1
 Items: 12, TableSize: 23
 Load factor: 0.522
@@ -191,7 +191,7 @@ Deleting key: 123457
 
 errno: 0, Key not in table.
 
-Number of probes: 186
+Number of probes: 135
 Number of expansions: 1
 Items: 12, TableSize: 23
 Load factor: 0.522
@@ -218,7 +218,7 @@ Slot:  19, Key: *** Empty ***
 Slot:  20, Key: *** Empty ***
 Slot:  21, Key: *** Empty ***
 Slot:  22, Key: *** Empty ***
-Number of probes: 186
+Number of probes: 135
 Number of expansions: 1
 Items: 0, TableSize: 23
 Load factor: 0

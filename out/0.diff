@@ -1,3 +1,43 @@
+63c63
+< Number of probes: 31
+---
+> Number of probes: 32
+70c70
+< Number of probes: 44
+---
+> Number of probes: 46
+89c89
+< Number of probes: 54
+---
+> Number of probes: 56
+118c118
+< Number of probes: 93
+---
+> Number of probes: 66
+147c147
+< Number of probes: 103
+---
+> Number of probes: 76
+176c176
+< Number of probes: 140
+---
+> Number of probes: 114
+185c185
+< Number of probes: 141
+---
+> Number of probes: 127
+194c194
+< Number of probes: 142
+---
+> Number of probes: 140
+221c221
+< Number of probes: 142
+---
+> Number of probes: 140
+227c227
+< Number of probes: 423
+---
+> Number of probes: 300
 233,237c233,237
 < Slot:   0, Key: 104001 (0)
 < Slot:   1, Key: 107001 (1)
@@ -60,7 +100,7 @@
 < Slot:   8, Key: 111001 (8)
 < Slot:   9, Key: 109001 (9)
 < Slot:  10, Key: 101001 (10)
-< Number of probes: 33
+< Number of probes: 32
 < Number of expansions: 0
 < Items: 10, TableSize: 11
 < Load factor: 0.909
@@ -131,7 +171,7 @@
 > Items: 11, TableSize: 23
 > Load factor: 0.478
 286,289c322,325
-< Number of probes: 42
+< Number of probes: 40
 < Number of expansions: 0
 < Items: 11, TableSize: 11
 < Load factor: 1
@@ -140,6 +180,10 @@
 > Number of expansions: 1
 > Items: 11, TableSize: 23
 > Load factor: 0.478
+292c328
+< Number of probes: 18
+---
+> Number of probes: 11
 307c343
 < Slot:   0, Key: 103001 (1)
 ---
@@ -274,3 +318,103 @@
 > Slot:   5, Key: 105001 (1)
 > Slot:   6, Key: 106001 (1)
 > Slot:   7, Key: 107001 (1)
+431c481
+< Number of probes: 100
+---
+> Number of probes: 66
+497c547
+< Number of probes: 15
+---
+> Number of probes: 16
+504c554
+< Number of probes: 19
+---
+> Number of probes: 21
+523c573
+< Number of probes: 24
+---
+> Number of probes: 26
+552c602
+< Number of probes: 36
+---
+> Number of probes: 27
+581c631
+< Number of probes: 37
+---
+> Number of probes: 28
+610c660
+< Number of probes: 38
+---
+> Number of probes: 30
+619c669
+< Number of probes: 40
+---
+> Number of probes: 32
+628c678
+< Number of probes: 41
+---
+> Number of probes: 46
+655c705
+< Number of probes: 41
+---
+> Number of probes: 46
+672c722
+< Number of probes: 19
+---
+> Number of probes: 15
+701c751
+< Number of probes: 28
+---
+> Number of probes: 17
+707c757
+< Number of probes: 97
+---
+> Number of probes: 64
+761c811
+< Number of probes: 91
+---
+> Number of probes: 95
+783c833
+< Number of probes: 104
+---
+> Number of probes: 102
+838c888
+< Number of probes: 55
+---
+> Number of probes: 59
+860c910
+< Number of probes: 62
+---
+> Number of probes: 63
+905c955
+< Number of probes: 13
+---
+> Number of probes: 9
+922c972
+< Number of probes: 15
+---
+> Number of probes: 11
+951c1001
+< Number of probes: 26
+---
+> Number of probes: 12
+985c1035
+< Number of probes: 32
+---
+> Number of probes: 18
+1014c1064
+< Number of probes: 35
+---
+> Number of probes: 21
+1043c1093
+< Number of probes: 39
+---
+> Number of probes: 25
+1072c1122
+< Number of probes: 48
+---
+> Number of probes: 34
+1101c1151
+< Number of probes: 49
+---
+> Number of probes: 35
